@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="teststyle.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="lodash.js"></script>
+        <script>
+            class Waypoint{
+                constructor(options){
+                    this.options = options;
+                }
+                
+                run(option){
+                    if(option["type"] === "addClass" && !$(option["selector"]).hasClass(option["class"])){
+                        console.log("add");
+                        $(option["selector"]).each(function(index, element){setTimeout(function(){$(element).addClass(option["class"]);}, option["repeatDelay"] * index)});
+                    }else if(option["type"] === "removeClass"  && $(option["selector"]).hasClass(option["class"])){
+                        console.log("remove");
+                        $(option["selector"]).each(function(index, element){setTimeout(function(){$(element).removeClass(option["class"]);}, option["repeatDelay"] * index)});
+                    }
+                }
+                
+                check(winTop, winBottom){
+                    if(this.options["trigger"] === "bottom"){
+                        console.log(winBottom);
+                        console.log(this.options["point"]);
+                        if(this.options["point"] <= winBottom){
+                            this.run(this.options["onEnter"]);
+                        }else{
+                            this.run(this.options["onExit"]);
+                        }
+                    }
+                }
+            }
+            
+            var latestKnownScrollY= 0
+            
+            var WP = new Array();            
+            
+            $( document ).ready(function() {
+                WP.push(new Waypoint({
+                                "type":"vis",
+                                "trigger":"bottom",
+                                "point":$(".pointCont").offset().top + ($(".pointCont").height() * .5),
+                                "onEnter":{
+                                            "type":"removeClass",
+                                            "selector":".point",
+                                            "class":"pointOff",
+                                            "repeatDelay":200
+                                            },
+                                "onExit":{
+                                            "type":"addClass",
+                                            "selector":".point",
+                                            "class":"pointOff",
+                                            "repeatDelay":0
+                                            }
+                                }
+                           )
+                        );
+                }
+            );
+            
+            function update(){
+                var winTop = $(window).scrollTop();
+                var winBottom = winTop + $(window).height();
+                
+                WP.forEach(function(wp){wp.check(winTop, winBottom);});
+            }
+            
+            $(window).scroll(_.throttle(update, 250, {'leading':true, 'trailing':false}));
+            
+            function fold(el){
+                $(el).addClass("imagesMinRight");
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div class="staticback text">
+            <div class="content">
+                <div class="textbackground">
+                    <div class="textbck bkg1"></div>
+                    <div class="textbkg bkg2"></div>
+                </div>
+                <div class="texttext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </div>
+        </div>
+        
+        <div class="staticback info">
+            
+        </div>
+        <div class="normalscroll">
+            <div class="col-12 inset-pt5 pointCont">
+                <div class="col-5 pointCol pointColLeft">
+                    <div class="point pointOff">Lorem ipsum dolor sit amet</div>
+                    <div class="point pointOff">Lorem ipsum dolor sit amet</div>
+                    <div class="point pointOff">Lorem ipsum dolor sit amet</div>
+                </div>
+                <div class="col-5 pointCol pointColRight">
+                    <div class="point pointOff">Lorem ipsum dolor sit amet</div>
+                    <div class="point pointOff">Lorem ipsum dolor sit amet</div>
+                    <div class="point pointOff">Lorem ipsum dolor sit amet</div>
+                </div>
+            </div>
+        </div>
+        <div class="staticback gallery">
+            <div class="images col-10 offset-1">
+                <div class="galleryContainer">
+                    <div class="image" onclick="fold(this)"></div>
+                    <div class="image" onclick="fold(this)"></div>
+                    <div class="image" onclick="fold(this)"></div>
+                    <div class="image" onclick="fold(this)"></div>
+                    <div class="image" onclick="fold(this)"></div>   
+                </div>
+            </div>
+        </div>
+        <div class="staticback flexexp">
+            <div class="flexcont">
+                <div class="flexheader">Header</div>
+                <div class="flexmenu">
+                    <div>item 1</div>
+                    <div>item 2</div>
+                    <div>item 3</div>
+                    <div>item 4</div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+</html>

@@ -1,0 +1,251 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.staticback{
+    min-height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+}
+
+.text{
+    background-image: url(images/68567938-random-wallpapers.jpg);
+    font-size: 36px;
+}
+
+.content{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 67vh;
+}
+
+.texttext{
+    position: absolute;
+    background: rgba(0,0,0,0);
+}
+
+.textbackground{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0);
+}
+
+.bkg1{
+    border-bottom:33vh solid red;
+    border-right: 100 solid transparent;
+}
+
+.bkg2{
+    border-bottom: 100px solid blue;
+}
+
+.info{
+    background-image: url(images/city-q-c-1280-960-3.jpg);
+}
+
+.gallery{
+    background-image: url(images/04091_hafencityhamburg_1920x1080.jpg);
+    display: flex;
+    align-items: center;
+}
+
+.gallery .images{
+    height: 60vh;
+    background: white;
+}
+
+.galleryContainer{
+    margin: 1em;
+    height: 80%;
+    position: relative;
+}
+
+.galleryContainer .image{
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    border: 2px solid red;
+    margin: auto;
+}
+
+.matrix{
+    transform: matrix(, .5, .5, .5, .5, .5);
+}
+
+.gallery .images .image:hover{
+    animation-name: foldLeft;
+    animation-duration: 1s;
+}
+
+@keyframes foldRight{
+    0%{
+        transform: perspective(1000px) translateX(0%) rotateY(0deg);
+        opacity: 100;
+    }
+    100%{
+        transform: perspective(1000px) translateX(50%) rotateY(75deg);
+        opacity: 0;
+    }
+}
+
+@keyframes foldLeft{
+    0%{
+        transform: perspective(1000px) translateX(0%) rotateY(0deg);
+        opacity: 100;
+    }
+    100%{
+        transform: perspective(1000px) translateX(-50%) rotateY(-75deg);
+        opacity: 0;
+    }
+}
+
+.normalscroll{
+    font-size: 24px;
+    margin-top: -20vh;
+    background-color: white;
+    height: 240px; 
+}
+
+.pointCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pointCont{
+    height: 100%;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+}
+
+.point{
+    transition: .75s;
+}
+
+.pointColRight{
+    align-items: flex-start;
+}
+
+.pointColLeft{
+    align-items: flex-end;
+}
+
+.pointColRight .pointOff{
+    transform: translateX(90px);
+    opacity: 0;
+}
+
+.pointColLeft .pointOff{
+    transform: translateX(-90px);
+    opacity: 0;
+}
+
+.flexexp{
+    background-image: url(images/waterfall.jpg);
+    display: flex;
+    align-items: center;
+}
+
+.flexcont{
+    width: 100%;
+    height: 5em;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    transition-duration: 1s;
+}
+
+.flexcont:hover{
+    height: 2em;
+}
+
+
+/*
+.flexcont:hover .flexheader{
+    width: 20%;
+}
+*/
+
+.flexheader{
+    width: 100%;
+    text-align: center;
+    transition-duration: 1s;
+}
+
+.flexmenu{
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.inset-pt5{
+    padding: 4.16667%;
+}
+
+.col-1{
+    width: 8.33333%;
+}
+
+.col-2{
+    width: 16.66667%;
+}
+
+.col-3{
+    width: 25%;
+}
+
+.col-4{
+    width: 33.33333%
+}
+
+.col-5{
+    width: 41.66667%;
+}
+
+.col-6{
+    width: 50%;
+}
+
+.col-7{
+    width: 58.33333%;
+}
+
+.col-8{
+    width: 66.66667%;
+}
+
+.col-9{
+    width: 75%;
+}
+
+.col-10{
+    width: 83.33333%;
+}
+
+.col-11{
+    width: 91.66667%;
+}
+
+.col-12{
+    width: 100%;
+}
+
+.offset-1{
+    margin-left: 8.33333%;
+}
+
+.offset-2{
+    margin-left: 16.66667%;
+}

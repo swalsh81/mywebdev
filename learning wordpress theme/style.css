@@ -1,0 +1,558 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.staticback{
+    min-height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.topCont{
+    background: url(images/black.png);
+    background-size: cover;
+    background-position: center bottom;
+    height: 100vh;
+}
+
+/* header*/
+
+.header{
+    border-bottom: 1px solid rgba(128, 128, 128, .7);
+    height:8em;
+    position: relative;
+    margin-top: -8em;
+    width: 100%;
+    transition-duration: 0s;
+    z-index: 100;
+}
+.header .transluscentBack{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: .9;
+    background: url(images/black.png);
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.headerCont{
+    width: inherit;
+    height: inherit;
+    position: relative;
+}
+
+.headerFixed{
+    position:fixed;
+    margin-top:0;
+}
+
+.headerCollapse{
+    height: 3em;
+    transition-duration: 1s;
+}
+
+.headerlogo{
+    background-image:url(images/method-draw-image.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height:calc(50% - 1em);
+    left: 0%;
+    background-size: contain;
+    background-position: center;
+    transition-duration: 1s;
+    position: absolute;
+    margin-top: .5em;
+    //margin-bottom: .5em;
+}
+
+.headermenu{
+    display: flex;
+    height: 50%;
+    top: 50%;
+    right: 0%;
+    font-size: 1.5em;
+    transition-duration: 1s;
+    position: absolute;
+    width: 100%;
+    transition-duration: 1s;
+}
+
+.headermenu div{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(128, 128, 128, .7);
+    height: 100%;   
+    transition-duration: 1s;
+}
+
+.headermenu div:last-of-type{
+    border: none;
+}
+
+.headermenu div a{
+    transition-duration: 1s;
+}
+
+.headermenu div,
+.headermenu div a,
+.headermenu div a:link,
+.headermenu div a:visited{
+    color: rgb(200, 200, 200);
+    text-decoration: none;
+}
+
+.headermenu div:hover{
+    background: rgb(160, 160, 160);
+} 
+
+.headermenu div:hover>a,
+.headermenu div:hover>a:link,
+.headermenu div:hover>a:visited{
+    color: black;
+}
+
+.headerCollapse .headerCont .headerlogo{
+    width: 25%;
+    height: calc(100% - 1em);
+}
+
+.headerCollapse .headerCont .headermenu{
+    font-size: 1.25em;
+    height: 100%;
+    width: 75%;
+    top: 0%;
+}
+
+/*about*/
+
+.frontabout{
+    margin-top: 5em;
+}
+
+.sectHeader{
+    font-size: 2em;
+    padding-left: 1em;
+}
+
+.sectContent{
+    margin: 1.5em;
+    display: flex;
+    flex-direction: row;
+}
+
+.frontabout .sectContent .image{
+    background-image: url(images/68567938-random-wallpapers.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+
+
+
+.showAbout .sectContent .image,
+.showAbout .sectContent .text,
+.showAbout .sectHeader{
+    transition-duration: 1s;
+    opacity: 100;
+    transform: translateX(0px);
+}
+
+.transDelay-short{
+    transition-delay: .25s;
+}
+
+/*gallery*/ 
+
+.galleryCont{
+    height: 100%;
+    width: 100%;
+    transition-duration: 1s;
+    display: flex;
+}
+
+.imageCont{
+    position: relative;
+    transition-duration: 2s;
+    z-index: 0;
+    animation-name: galleryScroll;
+    animation-duration: 50s;
+    animation-iteration-count: infinite;
+    padding: 0;
+    //opacity: 0;
+}
+
+.imageCont .image{
+    font-size: 8em;
+    height: 100%;
+    transition-duration: 2s;
+    //background-attachment: fixed;
+    background-size: auto;
+}
+
+#image0{
+    order:0;
+    transform: perspective(300px)rotateY(-90deg);
+    animation-delay: 0;
+}
+#image1{
+    order:1;
+    transform: perspective(300px)rotateY(-30deg);
+    animation-delay: -10s;
+}
+#image2{
+    order:2;
+    animation-delay: -20s;
+}
+
+#image3{
+    order:3;
+    transform: perspective(300px)rotateY(30deg);
+    animation-delay: -30s;
+}
+#image4{
+    order:4;
+    transform: perspective(300px)rotateY(90deg);
+    animation-delay: -40s;
+}
+
+
+#image1, #image3{
+    width: 15%;
+    height: 33.33333%;
+}
+
+#image2{
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    margin-right: -15%;
+    margin-left: -15%;
+}
+
+#image0, #image4{
+    width: 0;   
+    height: 0;
+    padding: 0;
+}
+
+@keyframes galleryScroll{
+    0%{
+        width: 0;   
+        height: 0;
+        order:0;
+        transform: perspective(300px)rotateY(-90deg);
+        margin: 0;
+        z-index: 0;
+    }
+    18%{
+        width: 0;   
+        height: 0;
+        order:0;
+        transform: perspective(300px)rotateY(-90deg);
+        margin: 0;
+        z-index: 0;
+    }
+    20%{
+        width: 15%;
+        height: 33.33333%;
+        order:1;
+        transform: perspective(300px)rotateY(-30deg);
+        margin: 0;
+        z-index: 0;
+    }
+    38%{
+        width: 15%;
+        height: 33.33333%;
+        order:1;
+        transform: perspective(300px)rotateY(-30deg);
+        margin: 0;
+        z-index: 0;
+    }
+    38.0001%{z-index: 1;}
+    40%{
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        margin-right: -15%;
+        margin-left: -15%;
+        order:2;
+        transform: perspective(0)rotateY(0deg);
+    }
+    56%{
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        margin-right: -15%;
+        margin-left: -15%;
+        order:2;
+        transform: perspective(0)rotateY(0deg);
+    }
+    58%{
+        width: 70%;
+        height: 70%;
+        z-index: 1;
+        margin: 0;
+        order:2;
+        transform: perspective(0)rotateY(0deg);
+    }
+    58.0001%{z-index: 0;}
+    60%{
+        width: 15%;
+        height: 33.33333%;
+        order:3;
+        transform: perspective(300px)rotateY(30deg); 
+        margin: 0; 
+        z-index: 0;
+    }
+    78%{
+        width: 15%;
+        height: 33.33333%;
+        order:3;
+        transform: perspective(300px)rotateY(30deg);  
+        margin: 0;
+        z-index: 0;  
+    }
+    80%{
+        width: 0;   
+        height: 0;
+        order:4;
+        transform: perspective(300px)rotateY(90deg);
+        margin: 0;
+        z-index: 0;
+    }
+    98%{
+        width: 0;   
+        height: 0;
+        order:4;
+        transform: perspective(300px)rotateY(90deg);
+        margin: 0;
+        z-index: 0;
+    }
+    100%{
+        width: 0;   
+        height: 0;
+        order:0;
+        transform: perspective(300px)rotateY(-90deg);
+        margin: 0;
+        z-index: 0;
+    }
+}
+
+/*work*/
+
+.workBack{
+    background-image: url(images/blue-abstract-glass-balls.jpg);
+    padding: 7em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.work{
+    width: 28%;
+    height: 15em;
+    background: linear-gradient(to bottom, #f6f8f9 0%,#e5ebee 17%,#f6f8f9 38%,#f6f8f9 59%,#d7dee3 97%,#f5f7f9 100%); 
+    margin-bottom: 3em;
+    border: .4em solid darkgray;
+    border-style: inset;
+    border-radius: 1em;
+    padding: .5em;
+    transition-duration: 1s;
+}
+
+.contactBack{
+    background: white;
+    
+}
+
+/*footer*/
+
+.footer{
+    height: 300px;
+    background: url(images/black.png);
+    background-size: cover;
+    background-position: center bottom;
+    position: relative;
+    overflow: hidden;
+}
+
+/* to top*/
+.toTopLink{
+    transition-duration: 5s;
+    position: fixed;
+    bottom: 0;
+    right:0;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+
+.toTopLink:link, toTopLink:visited{
+    text-decoration: none;
+}
+
+.toTop{
+    background: rgba(160, 160, 160, .25);
+    padding: .75rem;
+    padding-bottom: 0em;
+    border: .0125rem solid lightgray;
+    border-bottom-style: groove;
+
+    border-radius: .5rem;
+    font-size: 3em;
+    color: lightgray;
+    transition-duration: 2s;
+}
+
+.toTop:hover{
+    background: rgba(160, 160, 160, .5);
+}
+
+
+
+
+
+
+
+
+
+
+.toEnterLeft{
+    opacity: 0;
+    transform: translateX(-60px);
+}
+
+.toEnterRight{
+    opacity: 0;
+    transform: translateX(60px);
+}
+
+.toEnterBottom{
+    opacity: 0;
+    transform: translateY(60px);
+}
+
+.toFadeIn{
+    opacity: 0;
+}
+
+
+
+
+
+.imageCont:nth-of-type(1) .image{
+    background-image: url(images/04091_hafencityhamburg_1920x1080.jpg);
+}
+.imageCont:nth-of-type(2) .image{
+    background-image: url(images/68567938-random-wallpapers.jpg);
+}
+.imageCont:nth-of-type(3) .image{
+    background-image: url(images/blue-abstract-glass-balls.jpg);
+}
+.imageCont:nth-of-type(4) .image{
+    background-image: url(images/city-q-c-1280-960-3.jpg);
+}
+.imageCont:nth-of-type(5) .image{
+    background-image: url(images/italian-landscape-mountains-nature.jpg);
+}
+.imageCont:nth-of-type(6) .image{
+    background-image: url(images/people-woman-coffee-meeting.jpg);
+}
+.imageCont:nth-of-type(7) .image{
+    background-image: url(images/pexels-photo-105221.jpeg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.inset-pt5{
+    padding: 4.16667%;
+}
+
+.col-1{
+    width: 8.33333%;
+}
+
+.col-2{
+    width: 16.66667%;
+}
+
+.col-3{
+    width: 25%;
+}
+
+.col-4{
+    width: 33.33333%
+}
+
+.col-5{
+    width: 41.66667%;
+}
+
+.col-6{
+    width: 50%;
+}
+
+.col-7{
+    width: 58.33333%;
+}
+
+.col-8{
+    width: 66.66667%;
+}
+
+.col-9{
+    width: 75%;
+}
+
+.col-10{
+    width: 83.33333%;
+}
+
+.col-11{
+    width: 91.66667%;
+}
+
+.col-12{
+    width: 100%;
+}
+
+.offset-1{
+    margin-left: 8.33333%;
+}
+
+.offset-2{
+    margin-left: 16.66667%;
+}
+
+.space{
+    height:900px;
+}

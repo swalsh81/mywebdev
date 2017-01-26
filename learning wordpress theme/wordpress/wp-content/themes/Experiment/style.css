@@ -1,0 +1,170 @@
+/*
+Theme Name: Experiment
+Author: sterling
+Author URI:
+Version: 0.0.1
+*/
+
+html{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+/* Header */
+
+.site-header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.header-bar{
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.site-title{
+    padding-top: .5eem;
+    margin-left: .5em;
+    flex-grow: 1;
+    flex-basis: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.site-title h2{
+    margin: 0;
+}
+
+.site-title h2 a,
+.site-title h2 a:active,
+.site-title h2 a:visited{
+    text-decoration: none;
+    padding: 1em;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.site-title h5{
+    margin: 0;
+}
+
+/* header nav*/
+.site-nav{
+    flex-grow: 2;
+    padding-bottom: .5em;
+}
+
+.site-nav div{
+    
+}
+
+.site-nav ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.site-nav ul li{
+    list-style: none;
+    border-left: 1px solid rgba(128, 128, 128, .6);
+    padding: 1em;
+    padding-bottom: .5em;
+}
+
+.site-nav ul li:last-of-type{
+    border-right: 1px solid rgba(128, 128, 128, .6);
+}
+
+.site-nav ul li a{
+    text-decoration: none;
+    border-bottom: 1px solid rgba(128, 128, 128, .6);
+    padding: 1em;
+}
+
+.header-search{
+    flex-grow: 1;
+    flex-basis: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.header-search form, .header-search form div{
+    height: 100%;
+}
+
+.header-search form div{
+    display: flex;
+}
+
+.header-search .screen-reader-text{
+    position: absolute;
+    left: -9999px;
+}
+
+.header-search input{
+    margin: .5em;
+}
+
+.container .spacer{
+    height: 3em;
+}
+
+/* Page Content*/
+
+.fixed-bkg{
+    min-height: 100%;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.bkg-panel-1{
+    background-image:url(images/sky%20tree.jpg);
+    height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

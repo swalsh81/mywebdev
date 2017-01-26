@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="lodash.js"></script>
+        <script>
+            class Waypoint{
+                constructor(options){
+                    this.options = options;
+                }
+                
+                run(option){
+                    if(option["type"] === "addClass" && !$(option["selector"]).hasClass(option["class"])){
+                        //console.log("add");
+                        $(option["selector"]).each(function(index, element){setTimeout(function(){$(element).addClass(option["class"]);}, option["repeatDelay"] * index)});
+                    }else if(option["type"] === "removeClass"  && $(option["selector"]).hasClass(option["class"])){
+                        //console.log("remove");
+                        $(option["selector"]).each(function(index, element){setTimeout(function(){$(element).removeClass(option["class"]);}, option["repeatDelay"] * index)});
+                    }
+                }
+                
+                check(winTop, winBottom){
+                    if(this.options["trigger"] === "bottom"){
+                        //console.log(winBottom);
+                        //console.log(this.options["point"]);
+                        if(this.options["point"] <= winBottom){
+                            this.run(this.options["onEnter"]);
+                        }else{
+                            this.run(this.options["onExit"]);
+                        }
+                    }
+                    if(this.options["trigger"] === "top"){
+                        console.log("top: " + winTop);
+                        console.log("point: " + this.options["point"]);
+                        if(this.options["point"] <= winTop){
+                            this.run(this.options["onEnter"]);
+                        }else{
+                            this.run(this.options["onExit"]);
+                        }
+                    }
+                }
+            }
+            
+            var ticking = false;
+            
+            var WP = new Array();            
+            
+            $( document ).ready(function() {
+                WP.push(new Waypoint({
+                                "trigger":"top",
+                                "point":$(".header").offset().top,
+                                "onEnter":{
+                                            "type":"addClass",
+                                            "selector":".header",
+                                            "class":"headerFixed",
+                                            "repeatDelay":0
+                                            },
+                                "onExit":{
+                                            "type":"removeClass",
+                                            "selector":".header",
+                                            "class":"headerFixed",
+                                            "repeatDelay":0
+                                            }
+                                }
+                           )
+                        );
+                WP.push(new Waypoint({
+                                "trigger":"top",
+                                "point":$(".header").offset().top + ($(".header").height()/2),
+                                "onEnter":{
+                                            "type":"addClass",
+                                            "selector":".header",
+                                            "class":"headerCollapse",
+                                            "repeatDelay":0
+                                            },
+                                "onExit":{
+                                            "type":"removeClass",
+                                            "selector":".header",
+                                            "class":"headerCollapse",
+                                            "repeatDelay":0
+                                            }
+                                }
+                           )
+                        );
+                WP.push(new Waypoint({
+                                "trigger":"bottom",
+                                "point":$(".frontabout").offset().top + ($(".frontabout").height() * .75),
+                                "onEnter":{
+                                            "type":"addClass",
+                                            "selector":".frontabout",
+                                            "class":"showAbout",
+                                            "repeatDelay":0
+                                            },
+                                "onExit":{
+                                            "type":"removeClass",
+                                            "selector":".frontabout",
+                                            "class":"showAbout",
+                                            "repeatDelay":0
+                                            }
+                                }
+                           )
+                        );
+                
+                WP.push(new Waypoint({
+                                "trigger":"bottom",
+                                "point":$(".work").offset().top + ($(".frontabout").height() * .75),
+                                "onEnter":{
+                                            "type":"removeClass",
+                                            "selector":".work",
+                                            "class":"toEnterBottom",
+                                            "repeatDelay":500
+                                            },
+                                "onExit":{
+                                            "type":"addClass",
+                                            "selector":".work",
+                                            "class":"toEnterBottom",
+                                            "repeatDelay":0
+                                            }
+                                }
+                           )
+                        );
+                
+                $(".imageCont").click(function(e){scrollGallery(this);});
+                }
+            );
+            
+            function scrollGallery(el){
+                console.log("scroll");
+                console.log($(el).attr("id"));
+                
+                var i = parseInt($(el).attr("id").charAt(5));
+                console.log(i);
+                var c = 7;
+                var mid = 3;
+                
+                if(i <= mid){
+                    for(var j = 6; j > -1; j--){
+                        $("#image" + j).attr("id", "image" + (j+1));
+                    }
+                    $("#image7").attr("id", "image0");
+                }else if(i > mid){
+                    $("#image0").attr("id", "image7");
+                    for(var j = 1; j < 8; j++){
+                        $("#image" + j).attr("id", "image" + (j-1));
+                    }
+                }
+            }
+            
+            function update(){
+                var winTop = $(window).scrollTop();
+                var winBottom = winTop + $(window).height();
+            
+                WP.forEach(function(wp){wp.check(winTop, winBottom);});
+                ticking = false;
+            }
+            
+            //$(window).scroll(_.throttle(update, 250, {'leading':false, 'trailing':true}));
+            $(window).scroll(_.throttle(onScroll, 250, {'leading':false, 'trailing':true}));
+            
+            function onScroll() {
+                requestTick();
+            }
+            
+            function requestTick() {
+                if(!ticking) {
+                    requestAnimationFrame(update);
+                    ticking = true;
+                }
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div class="topCont staticback col-12">
+            <div class="galleryCont">
+                <div class="imageCont" id="image0">
+                    <div class="image"></div>
+                </div>
+                <div class="imageCont" id="image1">
+                    <div class="image"></div>
+                </div>
+                <div class="imageCont" id="image2">
+                    <div class="image"></div>
+                </div>
+                <div class="imageCont" id="image3">
+                    <div class="image"></div>
+                </div>
+                <div class="imageCont" id="image4">
+                    <div class="image"></div>
+                </div>
+                <div class="imageCont" id="image5">
+                    <div class="image"></div>
+                </div>
+                <div class="imageCont" id="image6">
+                    <div class="image"></div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="header">
+            <div class="headerCont">
+                <div class="headerlogo"></div>
+                <div class="headermenu">
+                    <div>Item1</div>
+                    <div>Item2</div>
+                    <div>Item3</div>
+                    <div>Item4</div>
+                </div>
+            </div>
+        </div>
+        <div class="frontabout section">
+            <div class="sectHeader toEnterLeft">About</div>
+            <div class="sectContent">
+                <div class="image col-4 toEnterLeft transDelay-short"></div>
+                <div class="text offset-1 col-7 toEnterRight transDelay-short">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </div>
+        </div>
+
+        <div class="workBack staticback col-12">
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+            <div class="work toEnterBottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+        </div>
+    </body>
+    
+</html>
